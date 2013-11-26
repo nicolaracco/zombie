@@ -336,6 +336,7 @@ class EventQueue
 
   # Window.clearTimeout
   clearTimeout: (index)->
+    return unless @timers
     timer = @timers[index]
     timer.stop() if timer
     return
@@ -343,6 +344,7 @@ class EventQueue
   # Window.setInterval
   setInterval: (fn, interval = 0)->
     return unless fn
+    return unless @timers
     index = @timers.length
     remove = =>
       delete @timers[index]
@@ -352,12 +354,14 @@ class EventQueue
 
   # Window.clearInterval
   clearInterval: (index)->
+    return unless @timers
     timer = @timers[index]
     timer.stop() if timer
     return
 
   # Returns the timestamp of the next timer event
   next: ->
+    return unless @timers
     next = Infinity
     for timer in @timers
       if timer && timer.next < next
