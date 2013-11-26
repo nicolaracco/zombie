@@ -326,6 +326,7 @@ class EventQueue
   # Window.setTimeout
   setTimeout: (fn, delay = 0)->
     return unless fn
+    return unless @timers
     index = @timers.length
     remove = =>
       delete @timers[index]
